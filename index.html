@@ -59,6 +59,13 @@
             margin-top: 15px;
         }
 
+        .loading {
+            display: none;
+            font-size: 1.2em;
+            color: #ffeb3b;
+            margin-top: 10px;
+        }
+
         footer {
             margin-top: 30px;
             font-size: 14px;
@@ -89,6 +96,7 @@
     <br>
     <button onclick="downloadVideo()">Download Now</button>
 
+    <p class="loading" id="loading">⏳ Downloading... Please wait!</p>
     <p id="status"></p>
 
     <footer>
@@ -105,10 +113,35 @@
                 return;
             }
             
-            document.getElementById("status").innerText = "Processing... Please wait!";
+            document.getElementById("status").innerText = "";
+            document.getElementById("loading").style.display = "block";
 
-            let apiUrl = `https://youtube-downloader-4bkk.onrender.com/download?url=${encodeURIComponent(url)}`;
-            window.location.href = apiUrl;
+            let apiUrl = `https://youtube-downloader-wkim.onrender.com/download?url=${encodeURIComponent(url)}`;
+            
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to download video. Please try again.");
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let downloadUrl = window.URL.createObjectURL(blob);
+                    let a = document.createElement("a");
+                    a.href = downloadUrl;
+                    a.download = "video.mp4";  // Save as MP4
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    document.getElementById("status").innerText = "✅ Download complete!";
+                })
+                .catch(error => {
+                    document.getElementById("status").innerText = "❌ Error: " + error.message;
+                })
+                .finally(() => {
+                    document.getElementById("loading").style.display = "none";
+                });
         }
     </script>
 
