@@ -1,29 +1,33 @@
-from flask import Flask, request, send_file, render_template
-from pytube import YouTube
+from flask import Flask, request, jsonify, send_file
+import yt_dlp
 import os
 
 app = Flask(__name__)
 
 DOWNLOAD_FOLDER = "downloads"
-if not os.path.exists(DOWNLOAD_FOLDER):
-    os.makedirs(DOWNLOAD_FOLDER)
+os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-@app.route("/download", methods=["POST"])
+@app.route('/download', methods=['GET'])
 def download_video():
+    video_url = request.args.get("url")
+    
+    if not video_url:
+        return jsonify({"error": "No URL provided"}), 400
+    
     try:
-        youtube_url = request.form["url"]
-        yt = YouTube(youtube_url)
-        stream = yt.streams.get_highest_resolution()
-        video_path = os.path.join(DOWNLOAD_FOLDER, yt.title + ".mp4")
-        stream.download(output_path=DOWNLOAD_FOLDER, filename=yt.title + ".mp4")
+        ydl_opts = {
+            'format': 'best',
+            'outtmpl': f"{DOWNLOAD_FOLDER}/%(title)s.%(ext)s",
+        }
         
-        return send_file(video_path, as_attachment=True)
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(video_url, download=True)
+            file_path = os.path.join(DOWNLOAD_FOLDER, f"{info['title']}.{info['ext']}")
+        
+        return send_file(file_path, as_attachment=True)
+    
     except Exception as e:
-        return f"Error: {str(e)}"
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
