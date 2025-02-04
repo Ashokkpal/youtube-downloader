@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Downloader | Ashok Pal</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        input, button { padding: 10px; margin: 10px; font-size: 16px; }
+        footer { margin-top: 20px; font-size: 14px; color: gray; }
+    </style>
+</head>
+<body>
+    <h2>YouTube Video Downloader</h2>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube Video URL">
+    <button onclick="downloadVideo()">Download</button>
+
+    <footer>
+        <p>Created by <a href="https://github.com/Ashokkpal" target="_blank">Ashok Pal</a></p>
+    </footer>
+
+    <script>
+        function downloadVideo() {
+            let url = document.getElementById("videoUrl").value;
+            if (!url) {
+                alert("Please enter a valid URL");
+                return;
+            }
+            window.location.href = `https://yt1s.com/en?q=${encodeURIComponent(url)}`;
+        }
+    </script>
+</body>
+</html>
