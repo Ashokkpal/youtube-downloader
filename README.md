@@ -92,7 +92,7 @@ Contributions are **welcome & appreciated!** 🚀
 ---
 
 ## 📄 License
-📝 This project is licensed under the **MIT License**.
+📝 This project is licensed under the [**MIT License**](https://github.com/Ashokkpal/youtube-downloader/blob/main/License)
 
 ---
 
