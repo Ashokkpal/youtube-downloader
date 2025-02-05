@@ -1,7 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import yt_dlp
+import os
 
 app = Flask(__name__)
+
+DOWNLOAD_FOLDER = "downloads"
+if not os.path.exists(DOWNLOAD_FOLDER):
+    os.makedirs(DOWNLOAD_FOLDER)
 
 @app.route('/download', methods=['GET'])
 def download_video():
@@ -11,9 +16,8 @@ def download_video():
         return jsonify({"error": "No URL provided"}), 400
 
     ydl_opts = {
-        'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'format': 'bestvideo+bestaudio/best',
-        'cookies-from-browser': 'chrome'  # Auto-fetch cookies from Chrome
+        'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
+        'format': 'bestvideo+bestaudio/best'
     }
 
     try:
@@ -21,10 +25,10 @@ def download_video():
             info = ydl.extract_info(video_url, download=True)
             file_path = ydl.prepare_filename(info)
 
-        return jsonify({"success": "Download complete", "file": file_path})
+        return send_file(file_path, as_attachment=True)
 
     except yt_dlp.utils.DownloadError as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000)
