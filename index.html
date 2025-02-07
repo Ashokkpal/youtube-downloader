@@ -37,7 +37,7 @@
             text-align: center;
             background: #222222;
             color: #FFD700;
-            box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.3);
+            box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.5);
         }
 
         button {
@@ -46,16 +46,14 @@
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            background: #FFA500; /* Deep Yellow */
-            color: #222222; /* Dark Text */
-            font-weight: bold;
-            box-shadow: 2px 2px 10px rgba(255, 165, 0, 0.5);
+            background: #FFD700;
+            color: #222222;
+            box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.5);
             transition: 0.3s;
         }
 
         button:hover {
-            background: #FFD700; /* Bright Yellow */
-            color: #333333;
+            background: #E5C100;
         }
 
         #status {
@@ -66,15 +64,19 @@
         .loading {
             display: none;
             font-size: 1.2em;
-            color: #FFA500;
+            color: #FFD700;
             margin-top: 10px;
         }
 
-        .alternative {
+        .alt-downloads {
             display: none;
-            font-size: 1.2em;
-            margin-top: 15px;
-            color: red;
+            margin-top: 20px;
+        }
+
+        .alt-downloads button {
+            margin: 5px;
+            background: #FFD700;
+            color: #222222;
         }
 
         footer {
@@ -84,7 +86,7 @@
         }
 
         footer a {
-            color: #FFA500;
+            color: #FFD700;
             text-decoration: underline;
         }
     </style>
@@ -110,10 +112,12 @@
     <p class="loading" id="loading">⏳ Downloading... Please wait!</p>
     <p id="status"></p>
 
-    <p class="alternative" id="alternative">
-        ❌ The downloader is currently not working. 
-        <a id="altLink" href="#" target="_blank">Try Alternative Open-Source Downloader</a>
-    </p>
+    <!-- Alternative Download Options (Hidden by Default) -->
+    <div class="alt-downloads" id="alt-downloads">
+        <p>⚠️ If download fails, try these alternatives:</p>
+        <button onclick="openAlternative('https://ytmp3.nu/')">🔗 YTMP3 Converter</button>
+        <button onclick="openAlternative('https://ssyoutube.com/')">🔗 SSYouTube</button>
+    </div>
 
     <footer>
         <p>🔥 Also check out my <a href="https://ashokkpal.github.io/stone-paper-scissors/" target="_blank">Stone-Paper-Scissors Game</a></p>
@@ -131,7 +135,6 @@
             
             document.getElementById("status").innerText = "";
             document.getElementById("loading").style.display = "block";
-            document.getElementById("alternative").style.display = "none";
 
             let apiUrl = `https://youtube-downloader-wkim.onrender.com/download?url=${encodeURIComponent(url)}`;
             
@@ -152,18 +155,22 @@
                     document.body.removeChild(a);
                     
                     document.getElementById("status").innerText = "✅ Download complete!";
+                    document.getElementById("loading").style.display = "none";
                 })
                 .catch(error => {
                     document.getElementById("status").innerText = "❌ Error: " + error.message;
-                    
-                    // Show alternative download option
-                    let altUrl = `https://www.ytmp3.nu/${encodeURIComponent(url)}`;
-                    document.getElementById("altLink").href = altUrl;
-                    document.getElementById("alternative").style.display = "block";
-                })
-                .finally(() => {
                     document.getElementById("loading").style.display = "none";
+                    document.getElementById("alt-downloads").style.display = "block"; // Show alternative options
                 });
+        }
+
+        function openAlternative(url) {
+            let videoUrl = document.getElementById("videoUrl").value;
+            if (!videoUrl) {
+                alert("Please enter a valid YouTube link!");
+                return;
+            }
+            window.open(url + videoUrl, "_blank");
         }
     </script>
 
