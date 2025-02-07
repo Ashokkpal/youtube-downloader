@@ -70,6 +70,13 @@
             margin-top: 10px;
         }
 
+        .alternative {
+            display: none;
+            font-size: 1.2em;
+            margin-top: 15px;
+            color: red;
+        }
+
         footer {
             margin-top: 30px;
             font-size: 14px;
@@ -103,6 +110,11 @@
     <p class="loading" id="loading">⏳ Downloading... Please wait!</p>
     <p id="status"></p>
 
+    <p class="alternative" id="alternative">
+        ❌ The downloader is currently not working. 
+        <a id="altLink" href="#" target="_blank">Try Alternative Open-Source Downloader</a>
+    </p>
+
     <footer>
         <p>🔥 Also check out my <a href="https://ashokkpal.github.io/stone-paper-scissors/" target="_blank">Stone-Paper-Scissors Game</a></p>
         <p>Connect with me on <a href="https://github.com/Ashokkpal" target="_blank">GitHub</a></p>
@@ -119,6 +131,7 @@
             
             document.getElementById("status").innerText = "";
             document.getElementById("loading").style.display = "block";
+            document.getElementById("alternative").style.display = "none";
 
             let apiUrl = `https://youtube-downloader-wkim.onrender.com/download?url=${encodeURIComponent(url)}`;
             
@@ -142,6 +155,11 @@
                 })
                 .catch(error => {
                     document.getElementById("status").innerText = "❌ Error: " + error.message;
+                    
+                    // Show alternative download option
+                    let altUrl = `https://www.ytmp3.nu/${encodeURIComponent(url)}`;
+                    document.getElementById("altLink").href = altUrl;
+                    document.getElementById("alternative").style.display = "block";
                 })
                 .finally(() => {
                     document.getElementById("loading").style.display = "none";
