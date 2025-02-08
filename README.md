@@ -1,108 +1,111 @@
-# 🎬 YouTube Video Downloader
+Based on the information you provided, here’s an updated README file for your YouTube Downloader project, incorporating your name, email, and license link. 
 
-🚀 **Download YouTube videos easily in various formats**
+```markdown
+# YouTube Downloader
 
-![YouTube Downloader](https://raw.githubusercontent.com/Ashokkpal/youtube-downloader/main/assets/banner.png)  
-_A lightweight, fast, and easy-to-use YouTube video downloader built with Flask & yt-dlp._
+A simple and efficient YouTube video downloader built with Python. This application allows users to download videos from YouTube in various formats and resolutions.
 
----
+## Table of Contents
 
-## 🌟 Features
-✅ Download YouTube videos in **HD quality**  
-✅ Supports **MP4, MP3, and other formats**  
-✅ **Bypass restrictions** using `--cookies-from-browser` (Local use) or `cookies.txt` (Render/VPS)  
-✅ **Easy-to-use API** – Just paste the video link & download!  
-✅ **Fast & Secure** – No ads, no tracking!  
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
----
+## Features
 
-## 🚀 Live Demo
-🔗 **Try it here** 👉 [YouTube Downloader](https://ashokkpal.github.io/youtube-downloader/)
+- Download videos in multiple formats (MP4, MP3, etc.)
+- Choose video resolution (720p, 1080p, etc.)
+- Simple command-line interface
+- Supports downloading playlists
+- Fast and efficient downloading
 
----
+## Installation
 
-## 🛠️ Installation & Setup
+To install the YouTube Downloader, follow these steps:
 
-### 🔥 1. Clone the Repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Ashokkpal/youtube-downloader.git
+   cd youtube-downloader
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Ensure you have Python 3.x installed on your machine.
+
+## Usage
+
+To download a video, run the following command in your terminal:
+
 ```bash
-git clone https://github.com/Ashokkpal/youtube-downloader.git
-cd youtube-downloader
+python downloader.py <YouTube_URL>
 ```
 
-### 📦 2. Install Dependencies
+Replace `<YouTube_URL>` with the URL of the video you want to download.
+
+### Example
+
 ```bash
-pip install -r requirements.txt
+python downloader.py https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
-### 🖥️ 3. Run the Flask Server
-#### 🔹 Local Machine (With `--cookies-from-browser`)
-```bash
-python app.py
-```
-#### 🔹 VPS / Render (Using `cookies.txt`)
-1. **Extract Cookies from Chrome:** [Get cookies.txt Extension](https://chrome.google.com/webstore/detail/get-cookiestxt/lgmpobddfdigpfojgnmgamkpejpmpkdo)
-2. **Upload `cookies.txt` to the project folder**
-3. Run the server:
-```bash
-python app.py
-```
+## API
 
----
+The application exposes a simple API for programmatic access. Here are some example endpoints:
 
-## 🔥 API Usage
-### 🎥 **Download a Video**
-```http
-GET /download?url=YOUTUBE_VIDEO_URL
-```
-#### ✅ **Example**:
-```http
-GET https://your-app.onrender.com/download?url=https://www.youtube.com/watch?v=VIDEO_ID
-```
-#### 🔥 **Response:**
+- **Download Video**
+  - **Endpoint**: `/download`
+  - **Method**: `POST`
+  - **Parameters**:
+    - `url`: The URL of the YouTube video.
+    - `format`: Desired format (e.g., `mp4`, `mp3`).
+    - `resolution`: Desired resolution (e.g., `720p`, `1080p`).
+
+### Example Request
+
 ```json
 {
-  "success": "Download complete",
-  "file": "downloads/sample_video.mp4"
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "format": "mp4",
+  "resolution": "720p"
 }
 ```
 
----
+## Troubleshooting
 
-## 🌈 Frontend UI Preview
-![UI Preview](https://raw.githubusercontent.com/Ashokkpal/youtube-downloader/main/assets/ui-preview.png)
+- **Issue**: Video download fails.
+  - **Solution**: Ensure the URL is correct and the video is not age-restricted or private.
 
----
+- **Issue**: Missing dependencies.
+  - **Solution**: Run `pip install -r requirements.txt` to install all required packages.
 
-## 🚀 Deployment (Render)
-1. **Create a Render Web Service**: [Render Dashboard](https://dashboard.render.com/web/new?newUser=true)
-2. **Connect GitHub Repo**: Select `youtube-downloader`
-3. **Set Build Command**: `pip install -r requirements.txt`
-4. **Set Start Command**: `python app.py`
-5. **Deploy & Enjoy!** 🎉
+## Contributing
 
----
+Contributions are welcome! Please follow these steps:
 
-## 🤝 Contributing
-Contributions are **welcome & appreciated!** 🚀
-1. **Fork the repo**
-2. **Create a new branch** (`git checkout -b feature-branch`)
-3. **Make your changes & commit** (`git commit -m "Added new feature"`)
-4. **Push & open a pull request** (`git push origin feature-branch`)
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a pull request.
 
----
+## License
 
-## 📄 License
-📝 This project is licensed under the [**MIT License**](https://github.com/Ashokkpal/youtube-downloader/blob/main/License)
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/Ashokkpal/youtube-downloader/blob/main/License) file for details.
+
+## Contact
+
+For any inquiries, please reach out to Ashok Pal at [ashokpal2094@gmail.com](mailto:ashokpal2094@gmail.com).
 
 ---
 
-## 🎯 Author
-👤 **Ashok Pal**  
-🔗 **GitHub**: [Ashokkpal](https://github.com/Ashokkpal)  
-🔗 **Portfolio**: [ashokkpal.github.io/](https://ashokkpal.github.io/)  
-💌 **Contact**: [ashokpal2094@gmail.com](mailto:ashokpal2094@gmail.com)
-
----
-
-⭐ **If you like this project, give it a star!** ⭐
-
+Thank you for using YouTube Downloader! Visit our [website](https://ashokkpal.github.io/youtube-downloader/) for more information.
+```
