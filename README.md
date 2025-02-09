@@ -1,4 +1,4 @@
-## 🎥 YouTube Downloader##
+**## 🎥 YouTube Downloader**
 
 A simple and efficient YouTube video downloader built with Python. This application allows users to download videos from YouTube in various formats and resolutions. 🚀
 
