@@ -2,7 +2,7 @@
 
 A simple and efficient YouTube video downloader built with Python. This application allows users to download videos from YouTube in various formats and resolutions. 🚀
 
-<img src="https://static.thenounproject.com/png/2132017-200.png" alt="YouTube Downloader" width="600"/> <!-- Replace with your image URL -->
+<img src="https://static.thenounproject.com/png/2132017-200.png" alt="YouTube Downloader" width="600"/> <!-- Replace with your image UR -->
 
 ##🌟 Table of Contents
 
